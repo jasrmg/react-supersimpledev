@@ -1,0 +1,50 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Tutorial</title>
+  </head>
+  <body>
+    <div class="app"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      const ChatMessage = ({ message, sender }) => {
+        return (
+          <div>
+            {sender === "robot" && <img src="3-robot.jpg" height="50" />}
+            {message}
+            {sender === "user" && <img src="nagi.jpg" height="50" />}
+          </div>
+        );
+      };
+
+      const ChatInput = () => {
+        return (
+          <div>
+            <input />
+            <button>Send</button>
+          </div>
+        );
+      };
+
+      const app = () => {
+        return (
+          <>
+            <ChatMessage message="Hello Robot!" sender="user" />
+            <ChatMessage message="Hello User!" sender="robot" />
+            <ChatMessage message="Bye Robot!" sender="user" />
+            <ChatMessage message="Bye User!" sender="robot" />
+            <ChatInput />
+          </>
+        );
+      };
+      const container = document.querySelector(".app");
+      const root = ReactDOM.createRoot(container);
+      root.render(app());
+    </script>
+  </body>
+</html>
