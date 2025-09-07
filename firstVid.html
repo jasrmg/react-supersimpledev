@@ -1,0 +1,101 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Activities Vid 1</title>
+  </head>
+  <body>
+    <div class="app"></div>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+    <script type="text/babel">
+      // LESSON 1 SOLUTION
+      const OneA = ({ text }) => {
+        return (
+          <>
+            <button>{text}</button>
+          </>
+        );
+      };
+      const OneB = () => {
+        return (
+          <>
+            <p>My name is Secret</p>
+          </>
+        );
+      };
+      const OneC = () => {
+        return (
+          <div>
+            <p>Cotton socks</p>
+            <p>Price: $10</p>
+            <OneA text="Add to Card" />
+          </div>
+        );
+      };
+      const OneD = () => {
+        const packOfSocks = 10;
+        const numberOfShirt = 2;
+        const priceOfShirt = 8;
+        const total = packOfSocks + numberOfShirt * priceOfShirt;
+        console.log(total);
+        return total;
+      };
+      const OneE = () => {
+        return <p>Product cost: ${OneD()}</p>;
+      };
+      const OneF = () => {
+        const shippingCost = 5;
+        const totalCost = OneD() + shippingCost;
+        return (
+          <>
+            <p>Product Cost: $ {OneD()}</p>
+            <p>Shipping Cost: $ {shippingCost}</p>
+            <p>Shipping Cost: $ {totalCost}</p>
+            <OneA text="Place Order" />
+          </>
+        );
+      };
+      const OneG = () => {
+        console.log(dayjs().format("MMMM D"));
+        return dayjs().format("MMMM D");
+      };
+      const OneH = () => {
+        return <p>Today is {OneG()}</p>;
+      };
+      const OneI = () => {
+        const time = dayjs().format("HH:mm:ss");
+        return <p>Current Time: {time}</p>;
+      };
+      const OneJ = () => {
+        const time = dayjs().format("HH:mm:ss");
+        return <p>Current Time: {time}</p>;
+      };
+      // ----------------------------------------
+      const container = document.querySelector(".app");
+      const root = ReactDOM.createRoot(container);
+      const App = () => {
+        return (
+          <>
+            <OneA text="Good Job!" />
+            <OneB />
+            <OneC />
+            <OneD />
+            <OneE />
+            <OneF />
+            <OneG />
+            <OneH />
+            <OneI />
+          </>
+        );
+      };
+      root.render(App());
+      // setInterval(() => {
+      //   root.render(<OneJ />);
+      // }, 1000);
+    </script>
+  </body>
+</html>
