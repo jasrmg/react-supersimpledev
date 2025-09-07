@@ -1,0 +1,104 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lesson Two</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .product-container {
+        margin: 4px;
+        border: 1px solid black;
+        padding: 10px;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app"></div>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      // LESSON TWO SOLUTION
+      const TwoA = () => {
+        return <p>Hello, welcome to my website</p>;
+      };
+      const TwoB = ({ text }) => {
+        return <button>{text}</button>;
+      };
+      const TwoC = ({ placeholder }) => {
+        return (
+          <div>
+            <input type="text" placeholder={placeholder} />
+          </div>
+        );
+      };
+      const LoginForm = () => {
+        // 2d
+        return (
+          <div>
+            <TwoA />
+            <TwoC placeholder="Email" />
+            <TwoC placeholder="Password" />
+            <TwoB text="Login" />
+            <TwoB text="Sign Up" />
+          </div>
+        );
+      };
+      // challenge exercise
+      const ProductDetail = ({ title, price, discountPrice, imageSrc }) => {
+        // 2e
+        return (
+          <div className="product-container">
+            <img src={imageSrc} height="50" />
+            <p className="title">{title}</p>
+            {discountPrice ? (
+              <>
+                <p className="price">
+                  <del>Price ${price}</del>
+                </p>
+                <p className="discount-price">
+                  Discount Price ${discountPrice}
+                </p>
+              </>
+            ) : (
+              <p className="price">Price ${price}</p>
+            )}
+            <button className="button">Add to Cart</button>
+          </div>
+        );
+      };
+
+      const App = () => {
+        return (
+          <div>
+            <LoginForm />
+            <div className="container">
+              <ProductDetail
+                title="Contton Socks"
+                price="10.90"
+                discountPrice="5.45"
+                imageSrc="nagi.jpg"
+              />
+              <ProductDetail title="Tennis Ball" price="6.00" />
+              <ProductDetail title="Plain T-Shirt" price="7.99" />
+            </div>
+          </div>
+        );
+      };
+
+      const container = document.querySelector(".app");
+      const root = ReactDOM.createRoot(container);
+      root.render(App());
+    </script>
+  </body>
+</html>
