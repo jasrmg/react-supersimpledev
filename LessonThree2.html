@@ -1,0 +1,60 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lesson Three</title>
+  </head>
+  <body>
+    <div class="app"></div>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      const ThreeG = () => {
+        const [text, setText] = React.useState("");
+        const saveText = (e) => {
+          setText((val) => e.target.value);
+        };
+        const clearText = () => {
+          setText("");
+        };
+        // const [placeholder, setPlaceholder] =
+        //   React.useState("Type a name here");
+
+        // const showExample = () => {
+        //   setPlaceholder((val) => "ex. Alice");
+        // };
+        const showExample = () => {
+          setText("Alice");
+        };
+        return (
+          <>
+            <input
+              type="text"
+              placeholder="Type a name here"
+              size="30"
+              onChange={saveText}
+              value={text}
+            />
+            <p>Hi, {text}</p>
+            <button onClick={clearText}>Reset</button>
+            <button onClick={showExample}>Example</button>
+          </>
+        );
+      };
+
+      const App = () => {
+        return (
+          <div>
+            <ThreeG />
+          </div>
+        );
+      };
+
+      const container = document.querySelector(".app");
+      const root = ReactDOM.createRoot(container);
+      root.render(<App />);
+    </script>
+  </body>
+</html>
