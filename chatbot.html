@@ -30,6 +30,13 @@
           ]);
           setInputText("");
         };
+        const challenge = (e) => {
+          if (e.key === "Enter") {
+            sendMessage();
+          } else if (e.key === "Escape") {
+            setInputText("");
+          }
+        };
 
         return (
           <>
@@ -38,6 +45,7 @@
               size="30"
               onChange={saveInputText}
               value={inputText}
+              onKeyDown={challenge}
             />
             <button onClick={sendMessage}>Send</button>
           </>
