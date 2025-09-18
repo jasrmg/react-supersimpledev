@@ -16,13 +16,16 @@
     <script type="text/babel">
       const ChatInput = ({ chatMessages, setChatMessages }) => {
         const [inputText, setInputText] = React.useState("");
+        const [isLoading, setIsLoading] = React.useState(false);
 
         const saveInputText = (e) => {
           setInputText(e.target.value);
         };
 
-        const sendMessage = () => {
-          let newChatMessage = [
+        const sendMessage = async () => {
+          if (!inputText.trim()) return;
+          if (isLoading) return;
+          const newChatMessage = [
             ...chatMessages,
             {
               message: inputText,
@@ -31,18 +34,22 @@
             },
           ];
           setChatMessages(newChatMessage);
-
-          const response = Chatbot.getResponse(inputText);
-          setChatMessages([
-            ...newChatMessage,
-            {
-              message: response,
-              sender: "robot",
-              key: crypto.randomUUID(),
-            },
-          ]);
-
           setInputText("");
+          setIsLoading(true);
+
+          try {
+            const response = await Chatbot.getResponseAsync(inputText);
+            setChatMessages([
+              ...newChatMessage,
+              {
+                message: response,
+                sender: "robot",
+                key: crypto.randomUUID(),
+              },
+            ]);
+          } finally {
+            setIsLoading(false);
+          }
         };
         const challenge = (e) => {
           if (e.key === "Enter") {
