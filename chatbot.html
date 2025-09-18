@@ -3,6 +3,78 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ChatBot</title>
+    <style>
+      body {
+        font-family: Arial;
+        margin: 0;
+      }
+      img {
+        border-radius: 50%;
+      }
+      .send-button {
+        background-color: rgb(25, 135, 84);
+        font-size: 15px;
+        padding: 10px 20px;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-left: 15px;
+        border: none;
+      }
+
+      .chat-input {
+        padding: 12px 15px;
+        border-radius: 10px;
+        border-width: 1px;
+        font-size: 15px;
+
+        flex-grow: 1;
+      }
+
+      .chat-input-container {
+        display: flex;
+        margin-bottom: 20px;
+      }
+
+      .app-container {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100vh;
+
+        display: flex;
+        flex-direction: column;
+      }
+      .chat-message-user {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .chat-message-robot {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 10px;
+      }
+      .chat-message-text {
+        background-color: rgb(238, 238, 238);
+        padding: 10px 20px;
+        border-radius: 10px;
+        max-width: 300px;
+      }
+      .chat-message-profile {
+        width: 45px;
+      }
+      .chat-message-container {
+        flex-grow: 1;
+        margin-top: 20px;
+
+        overflow: auto;
+        scrollbar-width: none;
+      }
+    </style>
   </head>
   <body>
     <div class="app"></div>
@@ -60,32 +132,43 @@
         };
 
         return (
-          <>
+          <div className="chat-input-container">
             <input
               placeholder="Send a message to Chatbot"
+              className="chat-input"
               size="30"
               onChange={saveInputText}
               value={inputText}
               onKeyDown={challenge}
             />
-            <button onClick={sendMessage}>Send</button>
-          </>
+            <button className="send-button" onClick={sendMessage}>
+              Send
+            </button>
+          </div>
         );
       };
 
       const ChatMessage = ({ message, sender }) => {
         return (
-          <div>
-            {sender === "robot" && <img src="robot.jpg" width="50" />}
-            {message}
-            {sender === "user" && <img src="nagi.jpg" width="50" />}
+          <div
+            className={
+              sender === "user" ? "chat-message-user" : "chat-message-robot"
+            }
+          >
+            {sender === "robot" && (
+              <img src="robot.jpg" className="chat-message-profile" />
+            )}
+            <div className="chat-message-text">{message}</div>
+            {sender === "user" && (
+              <img src="nagi.jpg" className="chat-message-profile" />
+            )}
           </div>
         );
       };
 
       const ChatMessages = ({ chatMessages }) => {
         return (
-          <>
+          <div className="chat-message-container">
             {chatMessages.map((chatMessage) => {
               return (
                 <ChatMessage
@@ -95,7 +178,7 @@
                 />
               );
             })}
-          </>
+          </div>
         );
       };
 
@@ -108,13 +191,13 @@
         ]);
 
         return (
-          <>
+          <div className="app-container">
+            <ChatMessages chatMessages={chatMessages} />
             <ChatInput
               chatMessages={chatMessages}
               setChatMessages={setChatMessages}
             />
-            <ChatMessages chatMessages={chatMessages} />
-          </>
+          </div>
         );
       };
       const container = document.querySelector(".app");
