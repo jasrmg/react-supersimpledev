@@ -168,6 +168,7 @@
 
       const ChatMessages = ({ chatMessages }) => {
         const chatMessagesRef = React.useRef(null);
+
         React.useEffect(() => {
           const containerElem = chatMessagesRef.current;
           if (containerElem) {

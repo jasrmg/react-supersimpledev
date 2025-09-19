@@ -1,0 +1,65 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prac</title>
+  </head>
+  <body>
+    <div class="root"></div>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      const Stopwatch = () => {
+        const [time, setTime] = React.useState(0);
+        const intervalRef = React.useRef(null);
+
+        React.useEffect(() => {
+          return () => {
+            if (intervalRef.current !== null) {
+              clearInterval(intervalRef.current);
+            }
+          };
+        }, []);
+
+        const start = () => {
+          if (intervalRef.current !== null) return;
+
+          intervalRef.current = setInterval(() => {
+            setTime((prev) => prev + 1);
+          }, 1000);
+        };
+
+        const stop = () => {
+          if (intervalRef.current !== null) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
+        };
+
+        return (
+          <div>
+            <h2> Time: {time}</h2>
+            <button onClick={start}>Start</button>
+            <button onClick={stop}>Stop</button>
+          </div>
+        );
+      };
+
+      const App = () => {
+        const [show, setShow] = React.useState(true);
+        return (
+          <div>
+            <button onClick={() => setShow(!show)}>Toggle Stopwatch</button>
+            {show && <Stopwatch />}
+          </div>
+        );
+      };
+
+      const container = document.querySelector(".root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<App />);
+    </script>
+  </body>
+</html>

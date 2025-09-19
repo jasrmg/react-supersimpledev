@@ -1,0 +1,68 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IIFE</title>
+  </head>
+  <body>
+    <script>
+      /*
+      const Settings = (() => {
+        // private values
+        let instance;
+
+        const createInstance = () => {
+          return {
+            theme: "light",
+            language: "English",
+          };
+        };
+
+        return {
+          // public
+          getInstance: () => {
+            if (!instance) {
+              instance = createInstance();
+            }
+            return instance;
+          },
+        };
+      })();
+
+      const s1 = Settings.getInstance();
+      const s2 = Settings.getInstance();
+      console.log(s1 === s2);
+      console.log(s1.theme);
+      */
+      const schoolDatabase = (() => {
+        //private
+        let instance;
+
+        const createInstance = () => {
+          return {
+            sn: "SMS",
+            l: "secret",
+            c: 69,
+            si: function () {
+              console.log(this.sn);
+              console.log(this.l);
+              console.log(this.c);
+            },
+          };
+        };
+
+        return {
+          getInstance: () => {
+            if (!instance) {
+              instance = createInstance();
+            }
+            return instance;
+          },
+        };
+      })();
+
+      const s1 = schoolDatabase.getInstance();
+      s1.si();
+    </script>
+  </body>
+</html>

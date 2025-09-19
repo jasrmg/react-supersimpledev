@@ -1,0 +1,82 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stopwatch Ref Demo</title>
+  </head>
+  <body>
+    <div class="root"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      const Stopwatch = () => {
+        const [time, setTime] = React.useState(0);
+        const intervalRef = React.useRef(null);
+
+        console.log("🟢 Stopwatch mounted, intervalRef =", intervalRef.current);
+
+        React.useEffect(() => {
+          return () => {
+            console.log(
+              "🔴 Stopwatch unmounting, intervalRef =",
+              intervalRef.current
+            );
+            if (intervalRef.current !== null) {
+              clearInterval(intervalRef.current);
+            }
+          };
+        }, []);
+
+        const start = () => {
+          if (intervalRef.current !== null) {
+            console.log(
+              "⚠️ Already running, intervalRef =",
+              intervalRef.current
+            );
+            return;
+          }
+          intervalRef.current = setInterval(() => {
+            setTime((t) => t + 1);
+          }, 1000);
+          console.log("▶️ Start pressed, intervalRef =", intervalRef.current);
+        };
+
+        const stop = () => {
+          if (intervalRef.current !== null) {
+            clearInterval(intervalRef.current);
+            console.log(
+              "⏸ Stop pressed, clearing intervalRef =",
+              intervalRef.current
+            );
+            intervalRef.current = null;
+          }
+        };
+
+        return (
+          <div>
+            <h2>Time: {time}</h2>
+            <button onClick={start}>Start</button>
+            <button onClick={stop}>Stop</button>
+          </div>
+        );
+      };
+
+      const App = () => {
+        const [show, setShow] = React.useState(true);
+
+        return (
+          <div>
+            <button onClick={() => setShow(!show)}>Toggle Stopwatch</button>
+            {show && <Stopwatch />}
+          </div>
+        );
+      };
+
+      const container = document.querySelector(".root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<App />);
+    </script>
+  </body>
+</html>
