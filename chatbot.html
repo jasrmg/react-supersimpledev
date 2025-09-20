@@ -86,9 +86,13 @@
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
 
     <script type="text/babel">
-      const ChatInput = ({ chatMessages, setChatMessages }) => {
+      const ChatInput = ({
+        chatMessages,
+        setChatMessages,
+        isLoading,
+        setIsLoading,
+      }) => {
         const [inputText, setInputText] = React.useState("");
-        const [isLoading, setIsLoading] = React.useState(false);
 
         const saveInputText = (e) => {
           setInputText(e.target.value);
@@ -140,9 +144,14 @@
               onChange={saveInputText}
               value={inputText}
               onKeyDown={challenge}
+              disabled={isLoading}
             />
-            <button className="send-button" onClick={sendMessage}>
-              Send
+            <button
+              className="send-button"
+              onClick={sendMessage}
+              disabled={isLoading}
+            >
+              {isLoading ? "..." : "Send"}
             </button>
           </div>
         );
@@ -166,7 +175,7 @@
         );
       };
 
-      const ChatMessages = ({ chatMessages }) => {
+      const ChatMessages = ({ chatMessages, isLoading }) => {
         const chatMessagesRef = React.useRef(null);
 
         React.useEffect(() => {
@@ -175,7 +184,7 @@
             containerElem.scrollTop = containerElem.scrollHeight;
           }
           console.log(containerElem);
-        }, [chatMessages]);
+        }, [chatMessages, isLoading]);
 
         return (
           <div className="chat-message-container" ref={chatMessagesRef}>
@@ -188,24 +197,42 @@
                 />
               );
             })}
+            {isLoading && (
+              <div className="chat-message-robot">
+                <img src="robot.jpg" className="chat-message-profile" />
+                <img
+                  src="loading-spinner.gif"
+                  alt="loading..."
+                  style={{ width: "40px" }}
+                />
+              </div>
+            )}
           </div>
         );
       };
 
       const App = () => {
-        const [chatMessages, setChatMessages] = React.useState([
-          { message: "Hello Robot!", sender: "user", key: 1 },
-          { message: "Hello User!", sender: "robot", key: 2 },
-          { message: "Bye Robot!", sender: "user", key: 3 },
-          { message: "Bye User!", sender: "robot", key: 4 },
-        ]);
-
+        const [chatMessages, setChatMessages] = React.useState([]);
+        const [isLoading, setIsLoading] = React.useState(false);
         return (
           <div className="app-container">
-            <ChatMessages chatMessages={chatMessages} />
+            {chatMessages.length === 0 ? (
+              <div
+                className="chat-message-container"
+                style={{ textAlign: "center" }}
+              >
+                Welcome to the chatbot project! Send a message using the textbox
+                below.
+              </div>
+            ) : (
+              <ChatMessages chatMessages={chatMessages} isLoading={isLoading} />
+            )}
+
             <ChatInput
+              isLoading={isLoading}
               chatMessages={chatMessages}
               setChatMessages={setChatMessages}
+              setIsLoading={setIsLoading}
             />
           </div>
         );
