@@ -40,19 +40,46 @@
 
         return (
           <div>
-            <h2> Time: {time}</h2>
+            <h2>Time: {time}</h2>
             <button onClick={start}>Start</button>
             <button onClick={stop}>Stop</button>
           </div>
         );
       };
 
+      const TypingBox = () => {
+        const [count, setCount] = React.useState(0);
+        const inputRef = React.useRef(null);
+
+        React.useEffect(() => {
+          console.log("Mounted");
+          return () => {
+            console.log("Unmounted");
+          };
+        }, []);
+
+        const handleChange = (e) => {
+          setCount(e.target.value.length);
+        };
+
+        const focusInput = () => {
+          inputRef.current.focus();
+        };
+
+        return (
+          <div>
+            <input ref={inputRef} type="text" onChange={handleChange} />
+            <button onClick={focusInput}>Focus</button>
+            <p>Count: {count}</p>
+          </div>
+        );
+      };
       const App = () => {
         const [show, setShow] = React.useState(true);
         return (
           <div>
-            <button onClick={() => setShow(!show)}>Toggle Stopwatch</button>
-            {show && <Stopwatch />}
+            <button onClick={() => setShow(!show)}>Toggle</button>
+            {show ? <Stopwatch /> : <TypingBox />}
           </div>
         );
       };
