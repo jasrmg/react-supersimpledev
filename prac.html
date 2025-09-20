@@ -52,9 +52,12 @@
         const inputRef = React.useRef(null);
 
         React.useEffect(() => {
-          console.log("Mounted");
+          if (inputRef.current) {
+            console.log("focused on input");
+            focusInput();
+          }
           return () => {
-            console.log("Unmounted");
+            console.log("cleanup");
           };
         }, []);
 
