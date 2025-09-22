@@ -104,25 +104,23 @@
 
         return (
           <div>
-            <h2>Time: {time}</h2>
+            <h2>Stopwatch</h2>
+            <h4>Time: {time}</h4>
             <button onClick={start}>Start</button>
             <button onClick={stop}>Stop</button>
           </div>
         );
       };
 
-      const InputTyping = () => {
+      const TypingInput = () => {
         const [count, setCount] = React.useState(0);
         const inputRef = React.useRef(null);
 
-        React.useState(() => {
+        React.useEffect(() => {
           if (inputRef.current !== null) {
             inputRef.current.focus();
           }
-          return () => {
-            console.log("Unmounting - clear function");
-          };
-        });
+        }, []);
 
         const handleChange = (e) => {
           setCount(e.target.value.length);
@@ -136,12 +134,13 @@
 
         return (
           <div>
-            <h2>Count: {count}</h2>
+            <h2>Typing Input</h2>
+            <h4>Count: {count}</h4>
             <input
               type="text"
               ref={inputRef}
-              placeholder="Enter anything"
               onChange={handleChange}
+              placeholder="Type anything"
             />
             <button onClick={focusInput}>Focus</button>
           </div>
@@ -153,8 +152,9 @@
 
         return (
           <div>
+            <h3>App</h3>
             <button onClick={() => setShow(!show)}>Toggle</button>
-            {show ? <Stopwatch /> : <InputTyping />}
+            {show ? <Stopwatch /> : <TypingInput />}
           </div>
         );
       };
@@ -231,7 +231,7 @@
       };
       const container = document.querySelector(".root");
       const root = ReactDOM.createRoot(container);
-      root.render(<ChallengeExercise />);
+      root.render(<App />);
     </script>
   </body>
 </html>
