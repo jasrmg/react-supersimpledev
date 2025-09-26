@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Chatbot Project</title>
+    <style>
+      body {
+        font-family: Arial;
+        margin: 0;
+      }
+      img {
+        border-radius: 50%;
+      }
+      .send-button {
+        background-color: rgb(25, 135, 84);
+        font-size: 15px;
+        padding: 10px 20px;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-left: 15px;
+        border: none;
+      }
+
+      .chat-input {
+        padding: 12px 15px;
+        border-radius: 10px;
+        border-width: 1px;
+        font-size: 15px;
+
+        flex-grow: 1;
+      }
+
+      .chat-input-container {
+        display: flex;
+        margin-bottom: 20px;
+      }
+
+      .app-container {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100vh;
+
+        display: flex;
+        flex-direction: column;
+      }
+      .chat-message-user {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .chat-message-robot {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 10px;
+      }
+      .chat-message-text {
+        background-color: rgb(238, 238, 238);
+        padding: 10px 20px;
+        border-radius: 10px;
+        max-width: 300px;
+      }
+      .chat-message-profile {
+        width: 45px;
+      }
+      .chat-message-container {
+        flex-grow: 1;
+        margin-top: 20px;
+
+        overflow: auto;
+        scrollbar-width: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/supersimpledev@8.0.1/chatbot.js"></script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

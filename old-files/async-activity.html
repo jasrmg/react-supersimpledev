@@ -1,0 +1,44 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Async Activity</title>
+  </head>
+  <body>
+    <script>
+      const Library = (() => {
+        let instance;
+
+        const createInstance = () => {
+          return {
+            name: "Jeff Lib",
+            location: "Tulic Argao, Cebu",
+            books: ["The Subtle Art of Not Giving a F*ck", "Atomic Habits"],
+            showBook: function () {
+              console.log(this.books.join(", "));
+            },
+            addBook: function (nb) {
+              this.books.push(nb);
+            },
+          };
+        };
+
+        return {
+          getInstance: () => {
+            if (!instance) {
+              instance = createInstance();
+            }
+            return instance;
+          },
+        };
+      })();
+
+      const lib = Library.getInstance();
+
+      lib.addBook(prompt("Enter a new book: "));
+      console.log(`Welcome to ${lib.name}`);
+      console.log(lib.location);
+      lib.showBook();
+    </script>
+  </body>
+</html>

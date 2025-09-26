@@ -1,0 +1,45 @@
+img {
+  border-radius: 50%;
+}
+
+.app-container {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 90vh;
+
+  display: flex;
+  flex-direction: column;
+}
+.chat-message-robot {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+}
+.chat-message-profile {
+  width: 45px;
+}
+
+/* Logo container */
+.app-logo {
+  text-align: center;
+  margin: 1rem 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Main text */
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e3a8a; /* primary color */
+  margin-right: 0.3rem;
+}
+
+/* Highlighted text in green */
+.logo-highlight {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d9c5a; /* accent green color */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
